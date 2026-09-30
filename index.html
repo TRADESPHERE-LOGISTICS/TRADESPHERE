@@ -2,377 +2,264 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TradeSphere — Import. Export. Connect.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shreni Global Logistics</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#07111f;--panel:#0d1b2e;--panel2:#10243b;--line:#203750;
-  --text:#f4f7fb;--muted:#9db0c5;--gold:#e8b65b;--gold2:#ffd982;
-  --green:#43d39e;--danger:#ff6b7a;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:
-radial-gradient(circle at 15% 10%,#17365b 0,transparent 30%),
-radial-gradient(circle at 85% 20%,#3b2b15 0,transparent 24%),var(--bg);color:var(--text)}
-button,input,textarea,select{font:inherit}
-button{cursor:pointer}
-.top{min-height:100vh}
-nav{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;
-border-bottom:1px solid rgba(255,255,255,.08);backdrop-filter:blur(14px);position:sticky;top:0;z-index:5;background:rgba(7,17,31,.78)}
-.logo{font-size:25px;font-weight:800;letter-spacing:.3px}.logo span{color:var(--gold)}
-.navright{display:flex;gap:12px;align-items:center}
-.btn{border:1px solid var(--line);background:#10243b;color:#fff;padding:11px 18px;border-radius:10px}
-.btn.primary{background:linear-gradient(135deg,#dca947,#f6d47e);color:#08111e;border:0;font-weight:800}
-.hero{max-width:1180px;margin:auto;padding:85px 24px 55px;text-align:center}
-.badge{display:inline-flex;padding:8px 13px;border:1px solid rgba(232,182,91,.35);background:rgba(232,182,91,.08);border-radius:999px;color:var(--gold2);font-size:13px}
-h1{font-size:clamp(42px,7vw,78px);line-height:1.02;margin:22px 0 18px;letter-spacing:-2px}
-.hero p{max-width:700px;margin:auto;color:var(--muted);font-size:18px;line-height:1.7}
-.choice{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:820px;margin:42px auto 20px}
-.choice button{min-height:170px;text-align:left;padding:30px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(18,39,63,.96),rgba(9,24,41,.96));color:white;transition:.2s}
-.choice button:hover{transform:translateY(-4px);border-color:rgba(232,182,91,.6)}
-.icon{font-size:32px}.choice h2{margin:14px 0 7px}.choice p{font-size:14px;margin:0;text-align:left}
-.section{max-width:1100px;margin:20px auto;padding:0 24px 70px}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:rgba(13,27,46,.82);border:1px solid var(--line);border-radius:16px;padding:22px}
-.card h3{margin:8px 0}.card p{color:var(--muted);font-size:14px;line-height:1.6}
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:20;overflow:auto;padding:30px}
-.modalbox{max-width:650px;margin:30px auto;background:#0b1b2e;border:1px solid var(--line);border-radius:20px;padding:26px}
-.modalbox h2{margin-top:0}.close{float:right;background:none;border:0;color:#9db0c5;font-size:25px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.full{grid-column:1/-1}
-label{font-size:12px;color:#9db0c5;display:block;margin-bottom:7px}
-input,textarea,select{width:100%;background:#071525;border:1px solid #25415f;color:#fff;padding:12px;border-radius:9px;outline:none}
-textarea{min-height:95px;resize:vertical}
-.actions{display:flex;gap:10px;margin-top:18px;justify-content:flex-end}
-.app{display:none;min-height:100vh}
-.appnav{padding:16px 5%;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center}
-.appmain{max-width:1150px;margin:auto;padding:28px 24px}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
-.tab{padding:10px 14px;border-radius:9px;border:1px solid var(--line);background:#0d1b2e;color:#b9c7d6}.tab.active{background:#dca947;color:#08111e}
-.panel{background:#0d1b2e;border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px}
-.hidden{display:none!important}
-.result{display:flex;justify-content:space-between;gap:15px;padding:17px 0;border-bottom:1px solid #203750}.result:last-child{border-bottom:0}
-.pill{display:inline-block;font-size:11px;padding:5px 8px;border-radius:999px;background:#153550;color:#9edcff}
-.chat{height:360px;overflow:auto;background:#071525;border:1px solid var(--line);border-radius:12px;padding:16px}
-.msg{max-width:75%;padding:10px 12px;border-radius:12px;background:#16314c;margin:8px 0}.msg.me{margin-left:auto;background:#75551f}
-.notice{background:rgba(67,211,158,.08);border:1px solid rgba(67,211,158,.3);padding:14px;border-radius:11px;color:#bff3de}
-footer{text-align:center;padding:25px;color:#71869c;border-top:1px solid rgba(255,255,255,.06);font-size:13px}
-@media(max-width:700px){.choice,.cards,.grid{grid-template-columns:1fr}.hero{padding-top:55px}nav{padding:0 18px}.navright .btn:first-child{display:none}}
-
-.global-map{
-  position:fixed;inset:0;z-index:-2;opacity:.18;
-  background:
-    radial-gradient(circle at 18% 25%,rgba(70,170,220,.25) 0 1px,transparent 2px),
-    radial-gradient(circle at 72% 65%,rgba(232,182,91,.22) 0 1px,transparent 2px),
-    linear-gradient(115deg,transparent 0 44%,rgba(80,150,200,.06) 44.2% 44.35%,transparent 44.5%),
-    linear-gradient(25deg,transparent 0 54%,rgba(80,150,200,.05) 54.2% 54.35%,transparent 54.5%);
-  background-size:90px 70px,120px 100px,100% 100%,100% 100%;
-}
-.earth-logo{width:48px;height:48px;position:relative;display:inline-flex;align-items:center;justify-content:center;margin-right:9px}
-.earth{width:42px;height:42px;border-radius:50%;background:
- radial-gradient(circle at 34% 30%,#79d8ff 0 3px,transparent 4px),
- linear-gradient(135deg,#2aa7df,#0d527e 65%,#061c32);border:1px solid rgba(255,255,255,.35);box-shadow:0 0 18px rgba(65,184,255,.5);position:relative;overflow:hidden}
-.earth:before{content:"";position:absolute;width:22px;height:10px;left:4px;top:10px;background:#62d19e;border-radius:60% 40% 50% 45%;transform:rotate(-20deg)}
-.earth:after{content:"";position:absolute;width:18px;height:9px;right:3px;bottom:8px;background:#62d19e;border-radius:45% 60% 35% 55%;transform:rotate(18deg)}
-.logo-ring{position:absolute;inset:-2px;border:1px solid rgba(232,182,91,.8);border-radius:50%;animation:spin 9s linear infinite}
-.logo-ring span{position:absolute;left:50%;top:-11px;transform:translateX(-50%);font-size:7px;letter-spacing:1.2px;color:#ffd982;white-space:nowrap;font-weight:800}
-@keyframes spin{to{transform:rotate(360deg)}}
-.brand{display:flex;align-items:center}
-.company-info{margin-top:28px;padding:18px;border:1px solid var(--line);border-radius:14px;background:rgba(9,22,38,.65)}
-.company-info h3{margin:0 0 10px}.company-info p{margin:5px 0;color:var(--muted);font-size:13px}
-.reg-lock{position:fixed;inset:0;background:rgba(3,9,17,.96);z-index:50;display:flex;align-items:center;justify-content:center;padding:20px}
-.reg-lock-box{width:min(600px,100%);background:#0b1b2e;border:1px solid #294663;border-radius:22px;padding:30px;box-shadow:0 20px 80px rgba(0,0,0,.5)}
-.search-country{position:relative}
-.country-hint{font-size:11px;color:#71869c;margin-top:5px}
-
+:root{--navy:#07122a;--navy2:#0d1f3f;--line:#22365c;--gold:#c9a24b;--gold2:#e6c97a;--ivory:#f3ecdc;--mute:#9fb0cc;--err:#ff8a7a}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--navy);color:var(--ivory);line-height:1.6}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;line-height:1.1}
+a{color:var(--gold2)}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(7,18,42,.95);z-index:5}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;font-weight:700}
+.brand small{display:block;font:500 .7rem Inter,sans-serif;color:var(--mute);letter-spacing:.04em}
+.btn{background:var(--gold);color:#1a1405;border:0;padding:11px 20px;border-radius:6px;font:600 .95rem Inter,sans-serif;cursor:pointer}
+.btn:hover{background:var(--gold2)}
+.btn.ghost{background:transparent;color:var(--ivory);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--gold)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}
+.hero{padding:9vh 5vw 7vh;text-align:center;background:radial-gradient(ellipse at 50% 0%,#15305e 0%,var(--navy) 65%);position:relative;overflow:hidden}
+.hero svg.map{position:absolute;inset:0;width:100%;height:100%;opacity:.12;pointer-events:none}
+.hero h1{font-size:clamp(2.4rem,7vw,4.6rem);max-width:15ch;margin:0 auto 18px;position:relative}
+.hero p{color:var(--mute);max-width:56ch;margin:0 auto 32px;position:relative}
+.choice{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;max-width:640px;margin:0 auto;position:relative}
+.choice button{padding:22px;background:var(--navy2);border:1px solid var(--gold);color:var(--ivory);border-radius:10px;font:700 1.35rem 'Cormorant Garamond',Georgia,serif;cursor:pointer;transition:background .2s}
+.choice button:hover{background:#15305e}
+.choice span{display:block;font:400 .82rem Inter,sans-serif;color:var(--mute);margin-top:4px}
+section{padding:56px 5vw;max-width:1100px;margin:auto}
+h2{font-size:2.1rem;margin-bottom:18px}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px}
+.rules div{border-left:2px solid var(--gold);padding-left:16px}
+.rules h3{font-size:1.4rem;margin-bottom:6px}
+.rules p{color:var(--mute);font-size:.94rem}
+.card{background:var(--navy2);border:1px solid var(--line);border-radius:10px;padding:22px}
+label{display:block;font-size:.85rem;color:var(--mute);margin:12px 0 4px}
+input,select,textarea{width:100%;background:var(--navy);border:1px solid var(--line);color:var(--ivory);padding:10px 12px;border-radius:6px;font:inherit}
+textarea{min-height:80px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+.modal{position:fixed;inset:0;background:rgba(3,8,20,.8);display:none;align-items:center;justify-content:center;padding:16px;z-index:10;overflow:auto}
+.modal.on{display:flex}
+.modal .card{width:100%;max-width:480px;max-height:92vh;overflow:auto}
+.tabs{display:flex;gap:8px;margin-bottom:8px}
+.tabs button{flex:1}
+.msg{min-height:1.4em;margin-top:10px;font-size:.9rem;color:var(--gold2)}
+.msg.err{color:var(--err)}
+.hide{display:none!important}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.filters>*{flex:1;min-width:150px;width:auto}
+.list{display:grid;gap:14px}
+.item{background:var(--navy2);border:1px solid var(--line);border-radius:10px;padding:18px}
+.item h3{font-size:1.5rem}
+.tag{display:inline-block;font-size:.75rem;padding:2px 9px;border-radius:99px;border:1px solid var(--gold);color:var(--gold2);margin-bottom:8px}
+.meta{color:var(--mute);font-size:.88rem;margin:4px 0 8px}
+.note{color:var(--mute);font-size:.85rem;margin-top:10px}
+footer{border-top:1px solid var(--line);padding:26px 5vw;text-align:center;color:var(--mute);font-size:.85rem}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
-<body><div class="global-map"></div>
+<body>
 
-<div id="landing" class="top">
-<nav>
-  <div class="brand"><div class="earth-logo"><div class="earth"></div><div class="logo-ring"><span>TRADESPHERE</span></div></div><div class="logo">Trade<span>Sphere</span></div></div>
-  <div class="navright">
-    <button class="btn" onclick="openModal('loginModal')">Log in</button>
-    <button class="btn primary" onclick="openModal('registerModal')">Register</button>
+<header>
+  <div class="brand">
+    <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><defs><radialGradient id="g" cx="35%" cy="30%"><stop offset="0" stop-color="#e6c97a"/><stop offset="1" stop-color="#8a6a1f"/></radialGradient></defs><circle cx="20" cy="20" r="17" fill="none" stroke="url(#g)" stroke-width="2"/><ellipse cx="20" cy="20" rx="7" ry="17" fill="none" stroke="#c9a24b" stroke-width="1.2"/><path d="M3 20h34M6 11h28M6 29h28" stroke="#c9a24b" stroke-width="1.2" fill="none"/></svg>
+    <div>Shreni Global Logistics<small>Connecting the world's traders</small></div>
   </div>
-</nav>
+  <div>
+    <button class="btn ghost" id="navAuth">Log in</button>
+    <button class="btn hide" id="navOut">Log out</button>
+  </div>
+</header>
 
-<section class="hero">
-  <span class="badge">GLOBAL B2B TRADE NETWORK</span>
-  <h1>Trade beyond borders.</h1>
-  <p>Connect with businesses worldwide to buy or sell products. Private negotiation, protected contact details and a clear deal-confirmation flow.</p>
-
+<div class="hero">
+  <svg class="map" viewBox="0 0 400 200" aria-hidden="true"><g fill="none" stroke="#c9a24b" stroke-width=".4"><path d="M0 100h400M0 50h400M0 150h400"/><path d="M100 0v200M200 0v200M300 0v200"/><ellipse cx="200" cy="100" rx="190" ry="95"/><ellipse cx="200" cy="100" rx="95" ry="95"/></g></svg>
+  <h1>One world. One family of traders.</h1>
+  <p>Shreni, an old Indian word for a guild of merchants, brings exporters and importers from every country together to negotiate openly and trade with trust.</p>
   <div class="choice">
-    <button onclick="openTrade('EXPORT')">
-      <div class="icon">🌍</div><h2>I WANT TO EXPORT</h2>
-      <p>List what you want to sell to buyers in any country.</p>
-    </button>
-    <button onclick="openTrade('IMPORT')">
-      <div class="icon">📦</div><h2>I WANT TO IMPORT</h2>
-      <p>Tell suppliers worldwide what you want to buy.</p>
-    </button>
+    <button data-go="export">I want to export<span>List goods you sell abroad</span></button>
+    <button data-go="import">I want to import<span>Find goods you want to buy</span></button>
   </div>
-</section>
-
-
-<section class="section">
-  <div class="company-info">
-    <h3>TradeSphere Global Trade Network</h3>
-    <p><strong>Founder:</strong> Nikhil Pandey</p>
-    <p><strong>CEO:</strong> Om Pandey</p>
-    <p><strong>Director:</strong> Naman Pandey</p>
-    <p><strong>Support Email:</strong> <a href="mailto:Tradesphere@logistic.com" style="color:#ffd982">Tradesphere@logistic.com</a></p>
-    <p><strong>Support Mobile:</strong> Coming soon</p>
-  </div>
-</section>
-<section class="section">
-  <div class="cards">
-    <div class="card"><div>🔒</div><h3>Private by design</h3><p>Personal contact details stay hidden during marketplace conversations.</p></div>
-    <div class="card"><div>💬</div><h3>Work-only chat</h3><p>V1 uses text-only negotiation. No photos, location, voice or video.</p></div>
-    <div class="card"><div>🤝</div><h3>Deal ready</h3><p>Both sides can explicitly confirm that they are ready to proceed.</p></div>
-  </div>
-</section>
-<footer>TradeSphere · Import. Export. Connect.</footer>
 </div>
 
+<section id="how">
+  <h2>How trading works here</h2>
+  <div class="rules">
+    <div><h3>Register first</h3><p>Verify your email with a one-time code. Your name, address and country stay on your profile.</p></div>
+    <div><h3>Private, text-only talks</h3><p>No photos, files, voice or location. Personal contact details stay hidden during negotiation.</p></div>
+    <div><h3>Both sides agree</h3><p>A deal is confirmed only when both parties press "We are ready to deal".</p></div>
+    <div><h3>Records are kept</h3><p>Relevant activity is retained to investigate fraud or disputes.</p></div>
+  </div>
+</section>
 
-<div id="registrationLock" class="reg-lock">
-  <div class="reg-lock-box">
-    <div class="brand" style="margin-bottom:18px"><div class="brand"><div class="earth-logo"><div class="earth"></div><div class="logo-ring"><span>TRADESPHERE</span></div></div><div class="logo">Trade<span>Sphere</span></div></div></div>
-    <h2 style="font-size:30px;margin:8px 0">Create your TradeSphere account</h2>
-    <p style="color:#9db0c5;line-height:1.6">Registration is required before any TradeSphere marketplace feature can be opened.</p>
-    <div class="grid">
-      <div><label>Mobile number</label><input id="lockMobile" placeholder="+91..."></div>
-      <div><label>Email</label><input id="lockEmail" type="email" placeholder="you@example.com"></div>
-      <div><label>Full name</label><input id="lockName" placeholder="Your name"></div>
-      <div class="search-country"><label>Country</label><input id="lockCountry" list="countries" placeholder="Type or select your country"><div class="country-hint">Type to search or choose from the full country list.</div></div>
-      <div class="full"><label>Address</label><textarea id="lockAddress" placeholder="Your address"></textarea></div>
+<section id="app" class="hide">
+  <h2>Trade board</h2>
+  <div class="card" style="margin-bottom:26px">
+    <h3 style="font-size:1.5rem">Post a requirement</h3>
+    <form id="postForm" onsubmit="return false">
+      <div class="row">
+        <div><label for="pType">I want to</label><select id="pType"><option value="export">Export</option><option value="import">Import</option></select></div>
+        <div><label for="pProduct">Product</label><input id="pProduct" required maxlength="120"></div>
+      </div>
+      <div class="row">
+        <div><label for="pQty">Quantity</label><input id="pQty" required maxlength="60" placeholder="e.g. 20 tonnes"></div>
+        <div><label for="pPrice">Price</label><input id="pPrice" required maxlength="60" placeholder="e.g. USD 450 per tonne"></div>
+      </div>
+      <div class="row">
+        <div><label for="pCountry">Country</label><input id="pCountry" list="countries" required></div>
+        <div><label for="pTerms">Trade terms</label><select id="pTerms"><option>FOB</option><option>CIF</option><option>CFR</option><option>EXW</option><option>DAP</option><option>DDP</option></select></div>
+      </div>
+      <label for="pDetails">Details</label><textarea id="pDetails" maxlength="1000"></textarea>
+      <button class="btn" id="postBtn" style="margin-top:14px">Post requirement</button>
+      <div class="msg" id="postMsg" role="status"></div>
+    </form>
+  </div>
+  <div class="filters">
+    <select id="fType"><option value="">Export and import</option><option value="export">Export only</option><option value="import">Import only</option></select>
+    <input id="fCountry" list="countries" placeholder="Filter by country">
+    <input id="fText" placeholder="Search product">
+  </div>
+  <div class="list" id="list"></div>
+  <p class="note">Private messaging and "We are ready to deal" will be added in the next step.</p>
+</section>
+
+<footer>© <span id="yr"></span> Shreni Global Logistics. All rights reserved.</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Account">
+  <div class="card">
+    <div class="tabs">
+      <button class="btn" id="tabReg">Register</button>
+      <button class="btn ghost" id="tabLog">Log in</button>
     </div>
-    <div class="notice" style="margin-top:16px">Your email is verified with a one-time code. Personal contact details will not be exposed to other users.</div>
-    <div class="actions"><button class="btn primary" onclick="completeFirstRegistration()">Register & Continue</button></div>
-    <p style="text-align:center;color:#71869c;font-size:12px;margin-bottom:0">TradeSphere · Import. Export. Connect.</p>
+    <div id="step1">
+      <div id="regFields">
+        <label for="rName">Full name</label><input id="rName" autocomplete="name">
+        <label for="rAddr">Address</label><input id="rAddr" autocomplete="street-address">
+        <label for="rCountry">Country</label><input id="rCountry" list="countries" autocomplete="country-name">
+        <label for="rMobile">Mobile (coming soon)</label><input id="rMobile" disabled placeholder="Mobile verification coming soon">
+      </div>
+      <label for="rEmail">Email</label><input id="rEmail" type="email" autocomplete="email">
+      <button class="btn" id="sendOtp" style="margin-top:14px;width:100%">Send code</button>
+    </div>
+    <div id="step2" class="hide">
+      <p class="note" style="margin-top:0">Enter the code sent to <b id="sentTo"></b>. Check spam if it does not arrive.</p>
+      <label for="otp">Verification code</label><input id="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="8">
+      <button class="btn" id="verifyOtp" style="margin-top:14px;width:100%">Verify and continue</button>
+    </div>
+    <div class="msg" id="authMsg" role="status"></div>
+    <button class="btn ghost" id="closeModal" style="width:100%;margin-top:10px">Close</button>
   </div>
 </div>
 
 <datalist id="countries"></datalist>
-<div id="app" class="app" style="display:none">
-<nav class="appnav"><div class="brand"><div class="earth-logo"><div class="earth"></div><div class="logo-ring"><span>TRADESPHERE</span></div></div><div class="logo">Trade<span>Sphere</span></div></div><button class="btn" onclick="logout()">Log out</button></nav>
-<main class="appmain">
-<h1 style="font-size:38px;letter-spacing:-1px;margin:10px 0">Trade Dashboard</h1>
-<p style="color:#9db0c5">Manage your trade requirements and private negotiations.</p>
-<div class="tabs">
-<button class="tab active" onclick="showTab('post',this)">Create Requirement</button>
-<button class="tab" onclick="showTab('matches',this)">Matches</button>
-<button class="tab" onclick="showTab('chat',this)">Negotiation</button>
-<button class="tab" onclick="showTab('deal',this)">Deal Status</button>
-</div>
 
-<div id="post" class="panel">
-<h2 id="tradeTitle">Create Requirement</h2>
-<div class="grid">
-<div><label>Product</label><input id="product" placeholder="e.g. Basmati Rice"></div>
-<div><label>Quantity</label><input id="quantity" placeholder="e.g. 20 MT"></div>
-<div class="search-country"><label>Country</label><input id="country" list="countries" placeholder="Type or select a country"><div class="country-hint">Choose any country or type to search.</div></div>
-<div><label>Price</label><input id="price" placeholder="Negotiable / target price"></div>
-<div class="full"><label>Product / trade details</label><textarea id="details" placeholder="Specifications, quality, packaging, delivery terms, required documents, etc."></textarea></div>
-</div>
-<div class="actions"><button class="btn primary" onclick="publishRequirement()">Publish Requirement</button></div>
-</div>
-
-<div id="matches" class="panel hidden">
-<h2>Potential Matches</h2>
-<div id="matchList"><div class="notice">Publish a requirement to see matching opportunities in this prototype.</div></div>
-</div>
-
-<div id="chat" class="panel hidden">
-<h2>Private Negotiation</h2>
-<div class="notice">Personal contact details are hidden. V1 chat is text-only.</div>
-<div class="chat" id="chatbox">
-<div class="msg">Welcome to the private negotiation channel.</div>
-</div>
-<div style="display:flex;gap:8px;margin-top:10px"><input id="chatInput" placeholder="Type work-related message..."><button class="btn primary" onclick="sendMsg()">Send</button></div>
-</div>
-
-<div id="deal" class="panel hidden">
-<h2>Deal Status</h2>
-<div class="notice" id="dealStatus">No deal confirmation yet.</div>
-<div class="actions"><button class="btn primary" onclick="readyDeal()">🤝 WE ARE READY TO DEAL</button></div>
-</div>
-</main>
-</div>
-
-<div class="modal" id="registerModal"><div class="modalbox">
-<button class="close" onclick="closeModal('registerModal')">×</button>
-<h2>Create your TradeSphere account</h2>
-<p style="color:#9db0c5">Basic registration for V1.</p>
-<div class="grid">
-<div><label>Mobile number</label><input id="regMobile" placeholder="+91 98765 43210"></div>
-<div><label>Email</label><input id="regEmail" type="email" placeholder="you@example.com"></div>
-<div><label>Full name</label><input id="regName" placeholder="Your name"></div>
-<div class="search-country"><label>Country</label><input id="regCountry" list="countries" placeholder="Type or select a country"></div>
-<div class="full"><label>Address</label><textarea id="regAddress" placeholder="Business / residential address"></textarea></div>
-</div>
-<div class="notice" style="margin-top:15px">Your account is secured by Supabase email OTP authentication. Enter the one-time code sent to your email.</div>
-<div class="actions"><button class="btn primary" onclick="registerDemo()">Continue</button></div>
-</div></div>
-
-<div class="modal" id="loginModal"><div class="modalbox">
-<button class="close" onclick="closeModal('loginModal')">×</button>
-<h2>Log in</h2>
-<label>Mobile number</label><input id="loginMobile" placeholder="+91...">
-<div class="actions"><button class="btn primary" onclick="loginDemo()">Send OTP</button></div>
-<div class="notice">Secure login uses a one-time code sent to your registered email.</div>
-</div></div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
-const SUPABASE_URL="https://sstfawnczbfgcvfubchv.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNzdGZhd25jemJmZ2N2ZnViY2h2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA3MDAzMzIsImV4cCI6MjEwNjI3NjMzMn0.CnFPqBlinnAxnDHEDQNA1Fow0-3yR4pu5aAIBkhw21k";
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+// ====== SETTINGS ======
+const SUPABASE_URL = 'https://sstfawnczbfgcvfubchv.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'PASTE_YOUR_PUBLISHABLE_ANON_KEY_HERE'; // never use the service_role key
+// =======================
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let mode = 'register', pending = null, user = null, all = [];
 
-const WORLD_COUNTRIES=["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];
-const countryList=document.getElementById("countries");
-WORLD_COUNTRIES.forEach(c=>{const o=document.createElement("option");o.value=c;countryList.appendChild(o)});
+$('yr').textContent = new Date().getFullYear();
 
-let mode="EXPORT", user=null, requirement=null, currentConversation=null, chatChannel=null;
-const $=id=>document.getElementById(id);
-const val=id=>($(id)?.value||"").trim();
-function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function setLock(show){$("registrationLock").style.display=show?"flex":"none"}
-function addOtpInput(parentId,inputId){if($(inputId))return;const wrap=document.createElement("div");wrap.className="full";wrap.innerHTML=`<label>Email OTP</label><input id="${inputId}" inputmode="numeric" maxlength="6" placeholder="Enter the 6-digit code from email">`;$(parentId).appendChild(wrap)}
-
-async function loadProfile(){
- const {data:{user:authUser}}=await db.auth.getUser();
- if(!authUser){user=null;setLock(true);return null}
- const {data:profile,error}=await db.from("profiles").select("*").eq("id",authUser.id).maybeSingle();
- if(error){console.error(error);alert(error.message);return null}
- user=profile;
- setLock(!profile);
- return profile;
-}
-async function saveProfile(d){
- const {data:{user:authUser}}=await db.auth.getUser();
- if(!authUser)throw new Error("Authentication required.");
- const {data,error}=await db.from("profiles").upsert({id:authUser.id,full_name:d.name,mobile:d.mobile,address:d.address,country:d.country}).select().single();
- if(error)throw error; user=data; setLock(false); return data;
-}
-async function sendRegistrationOtp(source){
- const email=source==="lock"?val("lockEmail"):val("regEmail");
- if(!email){alert("Enter your email address.");return}
- const {error}=await db.auth.signInWithOtp({email,options:{shouldCreateUser:true}});
- if(error){alert(error.message);return}
- if(source==="lock")addOtpInput("lockFields","lockOtp");else addOtpInput("regFields","regOtp");
- alert("OTP sent to your email. Enter the 6-digit code to continue.");
-}
-async function verifyRegistration(source){
- const prefix=source==="lock"?"lock":"reg";
- const email=val(prefix+"Email"), otp=val(prefix+"Otp");
- if(!email||!otp){alert("Enter your email and OTP.");return}
- const {data,error}=await db.auth.verifyOtp({email,token:otp,type:"email"});
- if(error){alert(error.message);return}
- const d={mobile:val(prefix+"Mobile"),email,name:val(prefix+"Name"),country:val(prefix+"Country"),address:val(prefix+"Address")};
- if(!d.mobile||!d.name||!d.country||!d.address){alert("Please complete all registration fields.");return}
- try{await saveProfile(d);closeModal("registerModal");alert("Registration complete. Welcome to TradeSphere.");showLanding();await loadRequirements();}
- catch(e){alert(e.message)}
-}
-function registerDemo(){
- if(!val("regEmail")||!val("regMobile")||!val("regName")||!val("regCountry")||!val("regAddress")){alert("Please complete all registration fields.");return}
- if($("regOtp")){verifyRegistration("reg");return}
- sendRegistrationOtp("reg");
-}
-function completeFirstRegistration(){
- if($("lockOtp")){verifyRegistration("lock");return}
- if(!val("lockEmail")||!val("lockMobile")||!val("lockName")||!val("lockCountry")||!val("lockAddress")){alert("Please complete all registration fields.");return}
- sendRegistrationOtp("lock");
-}
-async function loginDemo(){
- const email=val("loginEmail")||val("loginMobile");
- if(!email){alert("Enter your email address.");return}
- const {error}=await db.auth.signInWithOtp({email,options:{shouldCreateUser:false}});
- if(error){alert(error.message);return}
- if(!$("loginOtp")){const box=$("loginModal").querySelector(".grid")||$("loginModal").querySelector(".modalbox");const w=document.createElement("div");w.className="full";w.innerHTML='<label>Email OTP</label><input id="loginOtp" inputmode="numeric" maxlength="6" placeholder="Enter OTP">';box.appendChild(w)}
- if(!$("loginVerifyBtn")){const a=$("loginModal").querySelector(".actions");a.innerHTML='<button class="btn primary" id="loginVerifyBtn" onclick="verifyLogin()">Verify OTP</button>'}
- alert("OTP sent to your email. Enter the 6-digit code.");
-}
-async function verifyLogin(){
- const email=val("loginEmail")||val("loginMobile"),otp=val("loginOtp");
- const {error}=await db.auth.verifyOtp({email,token:otp,type:"email"});
- if(error){alert(error.message);return}
- closeModal("loginModal");await loadProfile();openTrade("EXPORT");
-}
-function openModal(id){if(id==="loginModal"&& !user){document.getElementById(id).style.display="block";return}document.getElementById(id).style.display="block"}
-function closeModal(id){document.getElementById(id).style.display="none"}
-function openTrade(type){if(!user){setLock(true);return}mode=type;$('landing').style.display='none';$('app').style.display='block';$('tradeTitle').textContent=type==='EXPORT'?'I WANT TO EXPORT':'I WANT TO IMPORT';showTab('post',document.querySelector('.tab'));loadRequirements()}
-function showLanding(){$('app').style.display='none';$('landing').style.display='block'}
-function showTab(id,btn){['post','matches','chat','deal'].forEach(x=>$(x).classList.add('hidden'));$(id).classList.remove('hidden');document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active')}
-async function publishRequirement(){
- if(!user){setLock(true);return}
- const p=val('product'),q=val('quantity'),d=val('details'),c=val('country')||'Any Country',pr=val('price');
- if(!p||!q||!d){alert('Please enter product, quantity and trade details.');return}
- const {data,error}=await db.from('requirements').insert({user_id:user.id,trade_type:mode.toLowerCase(),product:p,quantity:q,price:pr,country:c,trade_terms:pr,details:d,status:'active'}).select().single();
- if(error){alert(error.message);return}
- requirement=data;await db.from('audit_logs').insert({user_id:user.id,action:'requirement_created',requirement_id:data.id});
- ['product','quantity','country','price','details'].forEach(id=>$(id).value='');
- alert('Requirement published successfully.');await loadRequirements();showTab('matches',document.querySelectorAll('.tab')[1]);
-}
-async function loadRequirements(){
- if(!user)return;
- const {data,error}=await db.from('requirements').select('*').eq('status','active').order('created_at',{ascending:false});
- if(error){console.error(error);return}
- const list=$('matchList');if(!data?.length){list.innerHTML='<div class="notice">No active requirements yet.</div>';return}
- list.innerHTML=data.map(r=>`<div class="result"><div><span class="pill">${escapeHtml(r.trade_type.toUpperCase())}</span><h3>${escapeHtml(r.product)}</h3><p style="color:#9db0c5">${escapeHtml(r.quantity)} · ${escapeHtml(r.country)} · ${escapeHtml(r.price||'Negotiable')}</p></div><div><button class="btn" onclick="startConversation('${r.id}')">Open negotiation</button></div></div>`).join('');
-}
-async function startConversation(requirementId){
- const {data:req,error:reqErr}=await db.from('requirements').select('*').eq('id',requirementId).single();
- if(reqErr){alert(reqErr.message);return}
- if(req.user_id===user.id){alert('This is your own requirement. Another user must open it.');return}
- let exporter_id,importer_id;
- if(req.trade_type==='export'){exporter_id=req.user.id;importer_id=user.id}
- else{exporter_id=user.id;importer_id=req.user.id}
- let {data:conv,error}=await db.from('conversations').select('*').eq('requirement_id',requirementId).eq('exporter_id',exporter_id).eq('importer_id',importer_id).maybeSingle();
- if(error){alert(error.message);return}
- if(!conv){const r=await db.from('conversations').insert({requirement_id:requirementId,exporter_id,importer_id}).select().single();if(r.error){alert(r.error.message);return}conv=r.data;await db.from('deal_ready').upsert({conversation_id:conv.id,exporter_ready:false,importer_ready:false});await db.from('audit_logs').insert({user_id:user.id,action:'conversation_created',conversation_id:conv.id,requirement_id:requirementId})}
- currentConversation=conv;showTab('chat',document.querySelectorAll('.tab')[2]);await loadChat();await loadReadyStatus();subscribeToChat();
-}
-async function loadChat(){
- if(!currentConversation)return;const {data,error}=await db.from('messages').select('*').eq('conversation_id',currentConversation.id).order('created_at',{ascending:true});if(error){alert(error.message);return}
- $('chatbox').innerHTML=(data||[]).map(m=>`<div class="msg ${m.sender_id===user.id?'me':''}">${escapeHtml(m.message)}</div>`).join('')||'<div class="msg">Welcome to the private negotiation channel.</div>';$('chatbox').scrollTop=$('chatbox').scrollHeight;
-}
-async function sendMsg(){
- const text=val('chatInput');if(!text||!currentConversation||!user)return;
- const {error}=await db.from('messages').insert({conversation_id:currentConversation.id,sender_id:user.id,message:text});if(error){alert(error.message);return}$('chatInput').value='';await loadChat();
-}
-async function loadReadyStatus(){
- if(!currentConversation)return;const {data,error}=await db.from('deal_ready').select('*').eq('conversation_id',currentConversation.id).maybeSingle();if(error){console.error(error);return}
- if(!data){$('dealStatus').textContent='No deal confirmation yet.';return}
- const mine=currentConversation.exporter_id===user.id?data.exporter_ready:data.importer_ready;const other=currentConversation.exporter_id===user.id?data.importer_ready:data.exporter_ready;
- $('dealStatus').innerHTML=mine&&other?'<strong>🤝 Both parties are ready to deal.</strong>':mine?'<strong>You are ready.</strong><br><br>Waiting for the other party to confirm.':other?'<strong>The other party is ready.</strong><br><br>You can confirm when negotiations are complete.':'No deal confirmation yet.';
-}
-async function readyDeal(){
- if(!currentConversation||!user)return;const {data,error}=await db.from('deal_ready').select('*').eq('conversation_id',currentConversation.id).single();if(error){alert(error.message);return}
- const patch=currentConversation.exporter_id===user.id?{exporter_ready:true}:{importer_ready:true};const {error:e}=await db.from('deal_ready').update({...patch,updated_at:new Date().toISOString()}).eq('conversation_id',currentConversation.id);if(e){alert(e.message);return}
- await db.from('audit_logs').insert({user_id:user.id,action:'deal_ready_marked',conversation_id:currentConversation.id,requirement_id:currentConversation.requirement_id});await loadReadyStatus();
-}
-function subscribeToChat(){
- if(chatChannel)db.removeChannel(chatChannel);if(!currentConversation)return;
- chatChannel=db.channel('chat-'+currentConversation.id).on('postgres_changes',{event:'INSERT',schema:'public',table:'messages',filter:'conversation_id=eq.'+currentConversation.id},()=>loadChat()).subscribe();
-}
-function unsubscribeChat(){if(chatChannel){db.removeChannel(chatChannel);chatChannel=null}}
-async function logout(){unsubscribeChat();await db.auth.signOut();user=null;currentConversation=null;requirement=null;showLanding();setLock(true);closeModal("loginModal");closeModal("registerModal")}
-
-// Keep the existing UI; only connect its actions to Supabase.
-const oldLogin=$("loginModal").querySelector('label');if(oldLogin)oldLogin.textContent='Email';
-const oldLoginInput=$("loginMobile");if(oldLoginInput){oldLoginInput.id='loginEmail';oldLoginInput.type='email';oldLoginInput.placeholder='you@example.com'}
-const regGrid=$("registerModal").querySelector('.grid');if(regGrid)regGrid.id='regFields';
-const lockGrid=$("registrationLock").querySelector('.grid');if(lockGrid)lockGrid.id='lockFields';
-
-(async()=>{
- const {data:{session}}=await db.auth.getSession();
- if(session){await loadProfile();if(user)showLanding()}
- else setLock(true);
- db.auth.onAuthStateChange(async()=>{const {data:{session:s}}=await db.auth.getSession();if(s)await loadProfile()});
+// country list
+(function(){
+  try{
+    const dn = new Intl.DisplayNames(['en'], {type:'region'}), set = new Set(), L='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for(const a of L) for(const b of L){ try{ const n = dn.of(a+b); if(n && n!==a+b && n!=='Unknown Region') set.add(n);}catch(e){} }
+    $('countries').innerHTML = [...set].sort().map(n=>`<option value="${esc(n)}">`).join('');
+  }catch(e){}
 })();
-window.addEventListener('beforeunload',unsubscribeChat);
-console.log("TradeSphere Supabase backend connected:",SUPABASE_URL);
+
+function msg(el, t, err){ el.textContent = t; el.className = 'msg' + (err ? ' err' : ''); }
+function openModal(m){ setMode(m||'register'); $('modal').classList.add('on'); }
+function closeModal(){ $('modal').classList.remove('on'); }
+function setMode(m){
+  mode = m; pending = null;
+  $('regFields').classList.toggle('hide', m!=='register');
+  $('tabReg').className = 'btn' + (m==='register' ? '' : ' ghost');
+  $('tabLog').className = 'btn' + (m==='login' ? '' : ' ghost');
+  $('step1').classList.remove('hide'); $('step2').classList.add('hide'); msg($('authMsg'), '');
+}
+
+$('navAuth').onclick = () => openModal('login');
+$('navOut').onclick = async () => { await db.auth.signOut(); setUser(null); };
+$('closeModal').onclick = closeModal;
+$('tabReg').onclick = () => setMode('register');
+$('tabLog').onclick = () => setMode('login');
+document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => {
+  if(user){ $('pType').value = b.dataset.go; $('app').scrollIntoView(); }
+  else openModal('register');
+});
+
+$('sendOtp').onclick = async () => {
+  const email = $('rEmail').value.trim();
+  if(!email) return msg($('authMsg'), 'Enter your email.', true);
+  if(mode==='register'){
+    pending = {full_name:$('rName').value.trim(), address:$('rAddr').value.trim(), country:$('rCountry').value.trim(), email};
+    if(!pending.full_name || !pending.address || !pending.country) return msg($('authMsg'), 'Fill in name, address and country.', true);
+  }
+  $('sendOtp').disabled = true; msg($('authMsg'), 'Sending code...');
+  const { error } = await db.auth.signInWithOtp({ email, options:{ shouldCreateUser: mode==='register' } });
+  $('sendOtp').disabled = false;
+  if(error) return msg($('authMsg'), error.message, true);
+  $('sentTo').textContent = email;
+  $('step1').classList.add('hide'); $('step2').classList.remove('hide'); msg($('authMsg'), 'Code sent.');
+};
+
+$('verifyOtp').onclick = async () => {
+  const email = $('rEmail').value.trim(), token = $('otp').value.trim();
+  if(!token) return msg($('authMsg'), 'Enter the code.', true);
+  $('verifyOtp').disabled = true;
+  const { data, error } = await db.auth.verifyOtp({ email, token, type:'email' });
+  $('verifyOtp').disabled = false;
+  if(error) return msg($('authMsg'), error.message, true);
+  if(mode==='register' && pending){
+    const { error:e2 } = await db.from('profiles').upsert({ id:data.user.id, ...pending });
+    if(e2) return msg($('authMsg'), 'Verified, but profile not saved: ' + e2.message, true);
+  }
+  closeModal(); setUser(data.user);
+};
+
+function setUser(u){
+  user = u;
+  $('app').classList.toggle('hide', !u);
+  $('navAuth').classList.toggle('hide', !!u);
+  $('navOut').classList.toggle('hide', !u);
+  if(u) load(); 
+}
+
+$('postBtn').onclick = async () => {
+  const row = { user_id:user.id, type:$('pType').value, product:$('pProduct').value.trim(), quantity:$('pQty').value.trim(),
+    price:$('pPrice').value.trim(), country:$('pCountry').value.trim(), trade_terms:$('pTerms').value, details:$('pDetails').value.trim(), status:'active' };
+  if(!row.product || !row.quantity || !row.price || !row.country) return msg($('postMsg'), 'Fill in product, quantity, price and country.', true);
+  $('postBtn').disabled = true;
+  const { error } = await db.from('requirements').insert(row);
+  $('postBtn').disabled = false;
+  if(error) return msg($('postMsg'), error.message, true);
+  msg($('postMsg'), 'Requirement posted.'); $('postForm').reset(); load();
+};
+
+async function load(){
+  const { data, error } = await db.from('requirements').select('*').eq('status','active').order('created_at',{ascending:false}).limit(100);
+  if(error){ $('list').innerHTML = `<p class="note">Could not load: ${esc(error.message)}</p>`; return; }
+  all = data || []; render();
+}
+function render(){
+  const t = $('fType').value, c = $('fCountry').value.trim().toLowerCase(), q = $('fText').value.trim().toLowerCase();
+  const rows = all.filter(r => (!t || r.type===t) && (!c || (r.country||'').toLowerCase().includes(c)) && (!q || (r.product||'').toLowerCase().includes(q)));
+  $('list').innerHTML = rows.length ? rows.map(r => `<div class="item"><span class="tag">${r.type==='export'?'Exporting':'Importing'}</span>
+    <h3>${esc(r.product)}</h3><div class="meta">${esc(r.quantity)} · ${esc(r.price)} · ${esc(r.country)} · ${esc(r.trade_terms)}</div>
+    <p>${esc(r.details)}</p></div>`).join('') : '<p class="note">No requirements match yet. Be the first to post one.</p>';
+}
+['fType','fCountry','fText'].forEach(id => $(id).oninput = render);
+
+db.auth.getSession().then(({data}) => setUser(data.session ? data.session.user : null));
 </script>
 </body>
 </html>
